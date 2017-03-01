@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import django
+import datetime
+
 if django.VERSION >= (1,9):
     from django.forms.utils import flatatt
 else:    
@@ -138,3 +140,7 @@ class DateTimePicker(DateTimeInput):
         else:
             js = ''
         return mark_safe(force_text(html + js))
+
+    def value_from_datadict(self,data,files,name):
+        return datetime.datetime.strptime(data.get(name),self.format)
+        
